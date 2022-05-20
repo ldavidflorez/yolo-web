@@ -4,7 +4,7 @@
                 <p class="text-center">{{ message }}</p>
             </div>
             <div>
-                <img [src]="url" width="500" *ngIf="url">
+                <img [src]="url_input" width="500" *ngIf="url_input">
             </div>
             <br>
             <div>
@@ -24,14 +24,14 @@
         </div>
 
         <div>
-            <img [src]="'data:image/jpg;base64,'+result" width="500" *ngIf="result">
+            <img [src]="'data:image/jpg;base64,'+url_output" width="500" *ngIf="url_output">
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col">
-        <table class="table" *ngIf="out">
+        <table class="table" *ngIf="response">
             <thead>
                 <tr>
                 <th>Object</th>
@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let obj of out.data">
+                <tr *ngFor="let obj of response.data">
                 <td>{{ obj.object }}</td>
                 <td>{{ obj.confidence }}</td>
                 </tr>

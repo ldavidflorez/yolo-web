@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import {B64Image} from '../models/B64Image'
+import {ModelInput} from '../models/ModelInput'
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class YoloApiService {
 
   constructor(private http: HttpClient) { }
 
-  makeInference(b64Image: B64Image) {
-    return this.http.post(`${this.API_URI}/detect`, b64Image)
+  makeInference(modelInput: ModelInput) {
+    return this.http.post(`${this.API_URI}/detect`, modelInput)
   }
 
 }

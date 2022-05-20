@@ -81,7 +81,7 @@ def YOLO(base64_image):
     response = {'data': results, 'time': np.round(t - t0, 2), \
         'img': base64.b64encode(buffer).decode('ascii')}
         
-    cv.imwrite('results.png', img)
+    # cv.imwrite('results.png', img)
     return response
 
 

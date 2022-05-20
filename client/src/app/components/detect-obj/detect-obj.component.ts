@@ -1,5 +1,6 @@
+// Detect objects component
 import { Component, OnInit } from '@angular/core';
-import { B64Image } from 'src/app/models/B64Image';
+import { ModelInput } from 'src/app/models/ModelInput';
 
 import { YoloApiService } from 'src/app/services/yolo-api.service';
 
@@ -10,13 +11,21 @@ import { YoloApiService } from 'src/app/services/yolo-api.service';
 })
 export class DetectObjComponent implements OnInit {
 
-  url: any;
-  out: any;
-  spinner: boolean = false;
-  message: string = 'Please select an image';
-  result: string = '';
+  // Variables to store base64 image input and output
+  url_input: any ;
+  url_output: any ;
 
-  b64Image: B64Image = {
+  // Informative message
+  message: string = 'Please select an image';
+
+  // Spinner
+  spinner: boolean = false;
+
+  // Variable to store API response
+  response: any;
+
+  // JSON body to do POST (make YOLO inference)
+  modelInput: ModelInput = {
     base64_image: ''
   };
 
@@ -25,27 +34,38 @@ export class DetectObjComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Manage upload images
   handleUpload(event: any) {
-    this.out = '';
+    // Processing status
+    this.message = 'Processing...';
+    this.response = '';
+    this.url_output = '';
     this.spinner = true;
-    this.result = '';
+    // Capture input image
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+    // When image load
     reader.onload = () => {
-        this.url = reader.result;
-        this.b64Image.base64_image = this.url;
-        this.message = 'Processing...'
-        this.yoloAPI.makeInference(this.b64Image)
+        // Obtain input image in base64
+        this.url_input = reader.result;
+        this.modelInput.base64_image = this.url_input;
+
+        // Call YOLO model to make an inference
+        this.yoloAPI.makeInference(this.modelInput)
           .subscribe(
+            // If there is a valid response (correct inference)
             res => {
-              this.out = res;
-              this.spinner = false;
+              // Draw image and table response
               this.message = '';
-              this.result = this.out.img;
+              this.response = res;
+              this.url_output = this.response.img;
+              this.spinner = false;
             },
+            // If there is an error (incorrect inference)
             err => {
-              this.out = err;
+              // Notify error
+              this.response = err;
               this.spinner = false;
             }
           )
