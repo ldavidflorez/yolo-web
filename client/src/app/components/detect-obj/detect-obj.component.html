@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col">
             <div style="color: red; padding-top: 10%;">
-                <p class="text-center">Please select an image</p>
+                <p class="text-center">{{ message }}</p>
             </div>
             <div>
-                <img [src]="url" *ngIf="url">
+                <img [src]="url" width="500" *ngIf="url">
             </div>
             <br>
             <div>
@@ -15,21 +15,35 @@
     </div>
 
     <div class="col">
-        <div>
-            <table class="table" *ngIf="out">
-                <thead>
-                    <tr>
-                    <th>Object</th>
-                    <th>Confidence</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let obj of out.data">
-                    <td>{{ obj.object }}</td>
-                    <td>{{ obj.confidence }}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div style="padding-top: 10%;">
+            <p></p>
         </div>
+
+        <div class="d-flex justify-content-center" style="padding-top: 40%;" *ngIf="spinner">
+            <div class="spinner-border" role="status"></div>
+        </div>
+
+        <div>
+            <img [src]="'data:image/jpg;base64,'+result" width="500" *ngIf="result">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table" *ngIf="out">
+            <thead>
+                <tr>
+                <th>Object</th>
+                <th>Confidence</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let obj of out.data">
+                <td>{{ obj.object }}</td>
+                <td>{{ obj.confidence }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

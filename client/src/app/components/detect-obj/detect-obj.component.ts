@@ -12,6 +12,9 @@ export class DetectObjComponent implements OnInit {
 
   url: any;
   out: any;
+  spinner: boolean = false;
+  message: string = 'Please select an image';
+  result: string = '';
 
   b64Image: B64Image = {
     base64_image: ''
@@ -24,19 +27,26 @@ export class DetectObjComponent implements OnInit {
 
   handleUpload(event: any) {
     this.out = '';
+    this.spinner = true;
+    this.result = '';
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
         this.url = reader.result;
         this.b64Image.base64_image = this.url;
+        this.message = 'Processing...'
         this.yoloAPI.makeInference(this.b64Image)
           .subscribe(
             res => {
               this.out = res;
+              this.spinner = false;
+              this.message = '';
+              this.result = this.out.img;
             },
             err => {
               this.out = err;
+              this.spinner = false;
             }
           )
     };
