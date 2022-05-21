@@ -4,7 +4,7 @@
                 <p class="text-center">{{ message }}</p>
             </div>
             <div>
-                <img [src]="url_input" width="500" *ngIf="url_input">
+                <img [src]="urlInput" width="500" *ngIf="urlInput">
             </div>
             <br>
             <div>
@@ -24,14 +24,14 @@
         </div>
 
         <div>
-            <img [src]="'data:image/jpg;base64,'+url_output" width="500" *ngIf="url_output">
+            <img [src]="'data:image/jpg;base64,'+urlOutput" width="500" *ngIf="urlOutput">
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col">
-        <table class="table" *ngIf="response">
+        <table class="table" *ngIf="modelOutput.data">
             <thead>
                 <tr>
                 <th>Object</th>
@@ -39,11 +39,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let obj of response.data">
+                <tr *ngFor="let obj of modelOutput.data">
                 <td>{{ obj.object }}</td>
-                <td>{{ obj.confidence }}</td>
+                <td>{{ 100 * obj.confidence | number:'1.2-2'}}%</td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <br>
+
+    <div *ngIf="modelOutput.data">
+        <h5><b>Inference time: </b>{{ modelOutput.time | number:'1.2-2'}}[s]</h5>
     </div>
 </div>

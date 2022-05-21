@@ -71,14 +71,14 @@ def YOLO(base64_image):
             text = "{}: {:.4f}".format(classes[classIDs[i]], confidences[i])
             cv.putText(img, text, (x, y - 5), cv.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
             result['object'] = classes[classIDs[i]]
-            result['confidence'] = np.round(confidences[i], 2)
+            result['confidence'] = confidences[i]
             result['position'] = [(x, y), (x + w, y + h)]
             result['color'] = color
             results.append(result)
 
     _, buffer = cv.imencode('.png', img)
 
-    response = {'data': results, 'time': np.round(t - t0, 2), \
+    response = {'data': results, 'time': t - t0, \
         'img': base64.b64encode(buffer).decode('ascii')}
         
     # cv.imwrite('results.png', img)

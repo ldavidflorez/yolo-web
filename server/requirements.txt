@@ -34,6 +34,7 @@ executing==0.8.3
 fasteners==0.14.1
 filelock==3.7.0
 Flask==2.1.2
+Flask-Cors==3.0.10
 future==0.18.2
 httplib2==0.14.0
 idna==2.8

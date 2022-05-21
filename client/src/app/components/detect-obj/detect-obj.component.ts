@@ -11,23 +11,23 @@ import { YoloApiService } from 'src/app/services/yolo-api.service';
 })
 export class DetectObjComponent implements OnInit {
 
+  // JSON body to do POST (make YOLO inference)
+  modelInput: ModelInput = {
+    base64_image: ''
+  };
+
+  // Variable to store API response
+  modelOutput: any;
+
   // Variables to store base64 image input and output
-  url_input: any ;
-  url_output: any ;
+  urlInput: any ;
+  urlOutput: any ;
 
   // Informative message
   message: string = 'Please select an image';
 
   // Spinner
   spinner: boolean = false;
-
-  // Variable to store API response
-  response: any;
-
-  // JSON body to do POST (make YOLO inference)
-  modelInput: ModelInput = {
-    base64_image: ''
-  };
 
   constructor(private yoloAPI: YoloApiService) { }
 
@@ -38,8 +38,8 @@ export class DetectObjComponent implements OnInit {
   handleUpload(event: any) {
     // Processing status
     this.message = 'Processing...';
-    this.response = '';
-    this.url_output = '';
+    this.modelOutput = '';
+    this.urlOutput = '';
     this.spinner = true;
     // Capture input image
     const file = event.target.files[0];
@@ -48,8 +48,8 @@ export class DetectObjComponent implements OnInit {
     // When image load
     reader.onload = () => {
         // Obtain input image in base64
-        this.url_input = reader.result;
-        this.modelInput.base64_image = this.url_input;
+        this.urlInput = reader.result;
+        this.modelInput.base64_image = this.urlInput;
 
         // Call YOLO model to make an inference
         this.yoloAPI.makeInference(this.modelInput)
@@ -58,14 +58,14 @@ export class DetectObjComponent implements OnInit {
             res => {
               // Draw image and table response
               this.message = '';
-              this.response = res;
-              this.url_output = this.response.img;
+              this.modelOutput = res;
+              this.urlOutput = this.modelOutput.img;
               this.spinner = false;
             },
             // If there is an error (incorrect inference)
             err => {
               // Notify error
-              this.response = err;
+              this.modelOutput = err;
               this.spinner = false;
             }
           )
