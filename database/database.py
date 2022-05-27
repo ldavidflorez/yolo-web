@@ -1,4 +1,5 @@
 import mysql.connector
+import datetime
 
 
 def connect_db():
@@ -33,8 +34,12 @@ def select_db():
 
   results = cursor.fetchall()
 
+  data = []
   for r in results:
-    print(r)
+    data.append({'id': r[0], 'created_at': r[1],
+    'title': r[2], 'objects': r[3], 'image_result': r[4]})
+  
+  return data
 
 
 def update_db(val1, val2):
@@ -61,3 +66,5 @@ def delete_db(id):
   db.commit()
 
   print(cursor.rowcount, "record(s) deleted")
+
+select_db()
