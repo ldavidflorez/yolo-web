@@ -27,10 +27,8 @@ class Database:
 
     results = self.cursor.fetchall()
 
-    data = []
-    for r in results:
-      data.append({'id': r[0], 'created_at': r[1],
-      'title': r[2], 'objects': r[3], 'image_result': r[4]})
+    data = [{'id': r[0], 'created_at': r[1], 'title': r[2], 'objects': r[3], 'image_result': r[4]} \
+      for r in results]
     
     return data
 
