@@ -8,12 +8,18 @@ import { HomeComponent } from './components/home/home.component';
 import { DetectObjComponent } from './components/detect-obj/detect-obj.component';
 
 import { YoloApiService } from './services/yolo-api.service';
+import { CrudService } from './services/crud.service'
+
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { InfListComponent } from './components/inf-list/inf-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DetectObjComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent,
+    InfListComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +27,8 @@ import { YoloApiService } from './services/yolo-api.service';
     HttpClientModule
   ],
   providers: [
-    YoloApiService
+    YoloApiService,
+    CrudService
   ],
   bootstrap: [AppComponent]
 })

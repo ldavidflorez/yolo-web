@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component'
 import { DetectObjComponent } from './components/detect-obj/detect-obj.component';
+import { InfListComponent } from './components/inf-list/inf-list.component'
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'yolo',
     component: DetectObjComponent
+  },
+  {
+    path: 'list',
+    component: InfListComponent
   }
 ];
 

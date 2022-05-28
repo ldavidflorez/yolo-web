@@ -7,7 +7,6 @@ CORS(app)
 
 database = Database()
 
-
 @app.route('/yolo/list', methods=['GET'])
 def list_objects():
     objs = database.select_all()
@@ -46,4 +45,4 @@ def update_object(id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='localhost', port=3000, debug=True)
