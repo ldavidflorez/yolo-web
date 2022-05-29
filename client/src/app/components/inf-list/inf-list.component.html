@@ -1,1 +1,19 @@
-<p>inf-list works!</p>
+<div class="row">
+  <div class="col-md-4" style="padding: 1.5%;" *ngFor="let inf of inferences">
+    <div class="card text-center">
+      <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        {{inf.title}}
+        <button class="btn btn-danger" (click)="deleteItem(inf.id)">
+          <i class="fa fa-trash-o"></i>
+        </button>
+      </div>
+      <img class="card-img-top" [src]="inf.image_result">
+      <div class="card-body">
+        <p>{{inf.objects}}</p>
+        <hr>
+        <p>Created At {{inf.created_at | date: 'yyyy-MM-dd'}}</p>
+        <button type="button" class="btn btn-dark">EDIT</button>
+      </div>
+    </div>
+  </div>
+</div>

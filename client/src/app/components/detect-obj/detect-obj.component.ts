@@ -1,8 +1,10 @@
 // Detect objects component
 import { Component, OnInit } from '@angular/core';
 import { ModelInput } from 'src/app/models/ModelInput';
+import { Obj } from '../../models/Obj';
 
 import { YoloApiService } from 'src/app/services/yolo-api.service';
+import { CrudService } from '../../services/crud.service';
 
 @Component({
   selector: 'app-detect-obj',
@@ -15,6 +17,13 @@ export class DetectObjComponent implements OnInit {
   modelInput: ModelInput = {
     base64_image: ''
   };
+
+  // JSON body to do POST (make crud)
+  inference: Obj = {
+    title: '',
+    objects: '',
+    image_result: ''
+  }
 
   // Variable to store API response
   modelOutput: any;
@@ -29,7 +38,7 @@ export class DetectObjComponent implements OnInit {
   // Spinner
   spinner: boolean = false;
 
-  constructor(private yoloAPI: YoloApiService) { }
+  constructor(private yoloAPI: YoloApiService, private crud: CrudService) { }
 
   ngOnInit(): void {
   }
@@ -70,6 +79,22 @@ export class DetectObjComponent implements OnInit {
             }
           )
     };
-}
+  }
+
+  // Save new inference
+  saveNewInference(event: any) {
+    this.inference.objects = JSON.stringify(this.modelOutput.data);
+    this.inference.image_result = this.urlOutput;
+    
+    this.crud.saveInference(this.inference)
+    .subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
 
 }

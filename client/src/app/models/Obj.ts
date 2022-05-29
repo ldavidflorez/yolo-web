@@ -1,7 +1,7 @@
 export interface Obj {
-    id?: number,
-    created_at?: Date,
-    title?: string,
-    objects?: object,
-    image_result?: string
+    id?: number;
+    created_at?: Date;
+    title?: string;
+    objects?: string;
+    image_result?: string;
 }

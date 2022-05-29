@@ -21,6 +21,7 @@ export class CrudService {
   }
 
   deleteInference(id: string) {
+    console.log(`${this.API_URI}/${id}`);
     return this.http.delete(`${this.API_URI}/${id}`);
   }
 
