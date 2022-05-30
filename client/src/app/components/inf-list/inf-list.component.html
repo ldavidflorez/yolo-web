@@ -9,7 +9,9 @@
       </div>
       <img class="card-img-top" [src]="inf.image_result">
       <div class="card-body">
-        <p>{{inf.objects}}</p>
+        <p *ngFor="let obj of inf.objects">
+          {{obj.object}} --> {{obj.confidence | number:'1.2-2'}}
+        </p>
         <hr>
         <p>Created At {{inf.created_at | date: 'yyyy-MM-dd'}}</p>
         <button type="button" class="btn btn-dark">EDIT</button>

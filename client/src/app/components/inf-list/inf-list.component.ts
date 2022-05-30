@@ -16,6 +16,7 @@ export class InfListComponent implements OnInit {
     this.crud.getInferences().subscribe(
       res => {
         this.inferences = res;
+        console.log(this.inferences)
       },
       err => console.log(err),
     )

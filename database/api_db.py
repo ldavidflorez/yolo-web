@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import json
 from database import Database
 import io
 import cv2 as cv
@@ -15,6 +16,10 @@ database = Database()
 @app.route('/yolo/list', methods=['GET'])
 def list_objects():
     objs = database.select_all()
+    for obj in objs:
+        ele = [{'object': e['object'], 'confidence': e['confidence']} \
+            for e in json.loads(obj['objects'])]
+        obj['objects'] = ele
     return jsonify(objs)
 
 
@@ -32,11 +37,11 @@ def save_objects():
     imgdata = base64.b64decode(img)
     image = Image.open(io.BytesIO(imgdata))
     image = cv.cvtColor(np.array(image), cv.COLOR_BGR2RGB)
-    filename = '/home/luisf/Desktop/yoloweb/database/results/' + title + '.png'
+    filename = '/home/luisf/Desktop/yolo-web/client/src/assets/' + title + '.png'
     cv.imwrite(filename, image)
     objects = response['objects']
     # print(title, objects, filename)
-    database.insert(title, objects, filename)
+    database.insert(title, objects, '../../../assets/' + title + '.png')
     return jsonify({'response': 'record inserted'})
 
 

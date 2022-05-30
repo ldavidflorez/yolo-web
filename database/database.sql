@@ -6,7 +6,7 @@ CREATE TABLE detections (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     title VARCHAR(180),
-    objects VARCHAR(500),
+    objects TEXT,
     image_result VARCHAR(200)
 );
 
