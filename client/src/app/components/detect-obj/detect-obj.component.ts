@@ -1,5 +1,6 @@
 // Detect objects component
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModelInput } from 'src/app/models/ModelInput';
 import { Obj } from '../../models/Obj';
 
@@ -29,8 +30,8 @@ export class DetectObjComponent implements OnInit {
   modelOutput: any;
 
   // Variables to store base64 image input and output
-  urlInput: any ;
-  urlOutput: any ;
+  urlInput: any;
+  urlOutput: any;
 
   // Informative message
   message: string = 'Please select an image';
@@ -38,7 +39,7 @@ export class DetectObjComponent implements OnInit {
   // Spinner
   spinner: boolean = false;
 
-  constructor(private yoloAPI: YoloApiService, private crud: CrudService) { }
+  constructor(private yoloAPI: YoloApiService, private crud: CrudService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -90,6 +91,7 @@ export class DetectObjComponent implements OnInit {
     .subscribe(
       res => {
         console.log(res);
+        this.router.navigate(['/list']);
       },
       err => {
         console.log(err);
